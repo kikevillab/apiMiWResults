@@ -160,3 +160,89 @@ class Result implements \JsonSerializable
         );
     }
 }
+
+/**
+ * @SWG\Definition(
+ *     definition="Result",
+ *     required = { "id", "result", "time", "user" },
+ *     @SWG\Property(
+ *          property    = "id",
+ *          description = "Result Id",
+ *          type        = "integer",
+ *          format      = "int32"
+ *      ),
+ *      @SWG\Property(
+ *          property    = "result",
+ *          description = "Result result",
+ *          type        = "integer"
+ *      ),
+ *      @SWG\Property(
+ *          property    = "time",
+ *          description = "Result time",
+ *          type        = "dateTime"
+ *      ),
+ *      @SWG\Property(
+ *          property    = "user",
+ *          description = "Result User",
+ *          type        = "User"
+ *      ),
+ *      example = {
+ *          "id"       = 1508,
+ *          "result"   = "Result result",
+ *          "time"     = "Result time",
+ *          "user"     = "Result User"
+ *     }
+ * )
+ * @SWG\Parameter(
+ *      name        = "resultId",
+ *      in          = "path",
+ *      description = "ID of result to fetch",
+ *      required    = true,
+ *      type        = "integer",
+ *      format      = "int32"
+ * )
+ */
+
+/**
+ * @SWG\Definition(
+ *      definition = "ResultData",
+ *      @SWG\Property(
+ *          property    = "result",
+ *          description = "Result result",
+ *          type        = "integer"
+ *          format      = "int32"
+ *      ),
+ *      @SWG\Property(
+ *          property    = "time",
+ *          description = "Result time",
+ *          type        = "date"
+ *      ),
+ *      @SWG\Property(
+ *          property    = "idUser",
+ *          description = "Result User",
+ *          type        = "integer"
+ *          format      = "int32"
+ *      ),
+ *      example = {
+ *          "result"    = "35",
+ *          "time"      = "2016-10-22",
+ *          "idUser"    = "7"
+ *      }
+ * )
+ */
+
+/**
+ * User array definition
+ *
+ * @SWG\Definition(
+ *     definition = "ResultsArray",
+ *      @SWG\Property(
+ *          property    = "results",
+ *          description = "Results array",
+ *          type        = "array",
+ *          items       = {
+ *              "$ref": "#/definitions/Result"
+ *          }
+ *      )
+ * )
+ */
