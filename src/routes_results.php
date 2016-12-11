@@ -192,10 +192,7 @@ $app->post(
             return $this->renderer->render($newResponse, 'message.phtml', $datos);
         }
 
-        $result = new \MiW16\Results\Entity\Result();
-        $result->setResult($data['result'])
-            ->setUser($user)
-            ->setTime(DateTime::createFromFormat('Y-m-d', $data['time']));
+        $result = new \MiW16\Results\Entity\Result($data['result'], $user, DateTime::createFromFormat('Y-m-d', $data['time']));
 
         $em->persist($result);
         $em->flush();
@@ -230,7 +227,7 @@ $app->post(
  *     @SWG\Response(
  *          response    = 200,
  *          description = "`Ok` Result previously existed and is now updated",
- *          schema      = { "$ref": "#/definitions/User" }
+ *          schema      = { "$ref": "#/definitions/Result" }
  *     ),
  *     @SWG\Response(
  *          response    = 400,

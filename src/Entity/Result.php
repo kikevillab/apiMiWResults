@@ -210,23 +210,22 @@ class Result implements \JsonSerializable
  *          property    = "result",
  *          description = "Result result",
  *          type        = "integer"
- *          format      = "int32"
  *      ),
  *      @SWG\Property(
  *          property    = "time",
  *          description = "Result time",
- *          type        = "date"
+ *          type        = "string",
+ *          format      = "date"
  *      ),
  *      @SWG\Property(
- *          property    = "idUser",
- *          description = "Result User",
+ *          property    = "userId",
+ *          description = "User id",
  *          type        = "integer"
- *          format      = "int32"
  *      ),
  *      example = {
- *          "result"    = "35",
- *          "time"      = "2016-10-22",
- *          "idUser"    = "7"
+ *          "result"  = 35,
+ *          "time"    = "2016-08-22",
+ *          "userId"  = 5
  *      }
  * )
  */
