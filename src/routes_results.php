@@ -332,10 +332,11 @@ $app->put(
             ->setUser($user)
             ->setTime(DateTime::createFromFormat('Y-m-d', $data['time']));
 
-        $em->persist($result);
+        $em->merge($result);
         $em->flush();
 
         $newResponse = $response->withStatus(501);
+
         return $newResponse;
     }
 )->setName('miw_put_results');
