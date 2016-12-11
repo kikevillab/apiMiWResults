@@ -95,6 +95,57 @@ $app->get(
     }
 )->setName('miw_get_results');
 
+
+/**
+ * Summary: Deletes a result
+ * Notes: Deletes the result identified by &#x60;resultId&#x60;.
+ *
+ * @SWG\Delete(
+ *     method      = "DELETE",
+ *     path        = "/results/{resultId}",
+ *     tags        = { "Results" },
+ *     summary     = "Deletes a result",
+ *     description = "Deletes the result identified by `resultId`.",
+ *     operationId = "miw_delete_results",
+ *     parameters={
+ *          { "$ref" = "#/parameters/resultId" }
+ *     },
+ *     @SWG\Response(
+ *          response    = 204,
+ *          description = "Result deleted &lt;Response body is empty&gt;"
+ *     ),
+ *     @SWG\Response(
+ *          response    = 404,
+ *          description = "Result not found",
+ *          schema      = { "$ref": "#/definitions/Message" }
+ *     )
+ * )
+ */
+$app->delete(
+    '/results/{id:[0-9]+}',
+    function ($request, $response, $args) {
+        $this->logger->info('DELETE \'/results/' . $args['id'] . '\'');
+        $em = getEntityManager();
+        $result = $em
+            ->getRepository('MiW16\Results\Entity\Result')
+            ->findOneById($args['id']);
+
+        if (empty($result)) {  // 404 - User id. not found
+            $newResponse = $response->withStatus(404);
+            $datos = array(
+                'code' => 404,
+                'message' => 'Result not found'
+            );
+            return $this->renderer->render($newResponse, 'message.phtml', $datos);
+        }
+
+        $em->remove($result);
+        $em->flush();
+
+        return $response->withStatus(204);
+    }
+)->setName('miw_delete_results');
+
 /**
  * Summary: Provides the list of HTTP supported methods
  * Notes: Return a &#x60;Allow&#x60; header with a list of HTTP supported methods.
