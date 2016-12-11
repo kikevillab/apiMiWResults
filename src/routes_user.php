@@ -215,9 +215,38 @@ $app->post(
     function ($request, $response, $args) {
         $this->logger->info('POST \'/users\'');
         $data = json_decode($request->getBody(), true); // parse the JSON into an assoc. array
-        // process $data...
 
-        // TODO
+        if(empty($data['username']) || empty($data['email']) || empty($data['password'])){
+            $newResponse = $response->withStatus(422);
+            $datos = array(
+                'code' => 422,
+                'message' => '`Unprocessable entity` Username, e-mail or password is left out'
+            );
+            return $this->renderer->render($newResponse, 'message.phtml', $datos);
+        }
+
+        $em = getEntityManager();
+        $userRespository = $em->getRepository('MiW16\Results\Entity\User');
+
+        if(!empty($userRespository->findOneByUsername($data['username'])) || !empty($userRespository->findOneByEmail($data['email'])) ){
+            $newResponse = $response->withStatus(400);
+            $datos = array(
+                'code' => 400,
+                'message' => '`Bad Request` Username or email already exists.'
+            );
+            return $this->renderer->render($newResponse, 'message.phtml', $datos);
+        }
+
+        $usuario = new \MiW16\Results\Entity\User();
+        $usuario->setUsername($data['username'])
+                ->setEmail($data['email'])
+                ->setPassword($data['password'])
+                ->setEnabled($data['enabled'])
+                ->setToken($data['token']);
+
+        $em->persist($usuario);
+        $em->flush();
+
         $newResponse = $response->withStatus(501);
         return $newResponse;
     }
@@ -266,11 +295,41 @@ $app->put(
     function ($request, $response, $args) {
         $this->logger->info('PUT \'/users\'');
         $data = json_decode($request->getBody(), true); // parse the JSON into an assoc. array
-        // process $data...
 
-        // TODO
+        $em = getEntityManager();
+        $userRespository = $em->getRepository('MiW16\Results\Entity\User');
+
+        $usuario = $userRespository->findOneById($args['id']);
+
+        if (empty($usuario)) {  // 404 - User id. not found
+            $newResponse = $response->withStatus(404);
+            $datos = array(
+                'code' => 404,
+                'message' => 'User not found'
+            );
+            return $this->renderer->render($newResponse, 'message.phtml', $datos);
+        }
+
+        if(!empty($userRespository->findOneByUsername($data['username'])) || !empty($userRespository->findOneByEmail($data['email'])) ){
+            $newResponse = $response->withStatus(400);
+            $datos = array(
+                'code' => 400,
+                'message' => '`Bad Request` Username or email already exists.'
+            );
+            return $this->renderer->render($newResponse, 'message.phtml', $datos);
+        }
+
+        $usuario->setUsername($data['username'])
+            ->setEmail($data['email'])
+            ->setPassword($data['password'])
+            ->setEnabled($data['enabled'])
+            ->setToken($data['token']);
+
+        $em->persist($usuario);
+        $em->flush();
+
         $newResponse = $response->withStatus(501);
         return $newResponse;
     }
-)->setName('miw_post_users');
+)->setName('miw_put_users');
 
