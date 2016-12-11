@@ -87,7 +87,7 @@ class User implements \JsonSerializable
     /**
      * @return int
      */
-    public function getId(): int
+    public function getId()
     {
         return $this->id;
     }
@@ -95,7 +95,7 @@ class User implements \JsonSerializable
     /**
      * @return string
      */
-    public function getUsername(): string
+    public function getUsername()
     {
         return $this->username;
     }
@@ -104,7 +104,7 @@ class User implements \JsonSerializable
      * @param string $username
      * @return User
      */
-    public function setUsername(string $username): User
+    public function setUsername($username)
     {
         $this->username = $username;
         return $this;
@@ -113,7 +113,7 @@ class User implements \JsonSerializable
     /**
      * @return string
      */
-    public function getEmail(): string
+    public function getEmail()
     {
         return $this->email;
     }
@@ -122,7 +122,7 @@ class User implements \JsonSerializable
      * @param string $email
      * @return User
      */
-    public function setEmail(string $email): User
+    public function setEmail($email)
     {
         $this->email = $email;
         return $this;
@@ -131,7 +131,7 @@ class User implements \JsonSerializable
     /**
      * @return boolean
      */
-    public function isEnabled(): bool
+    public function isEnabled()
     {
         return $this->enabled;
     }
@@ -140,7 +140,7 @@ class User implements \JsonSerializable
      * @param boolean $enabled
      * @return User
      */
-    public function setEnabled(bool $enabled): User
+    public function setEnabled($enabled)
     {
         $this->enabled = $enabled;
         return $this;
@@ -149,7 +149,7 @@ class User implements \JsonSerializable
     /**
      * @return string
      */
-    public function getPassword(): string
+    public function getPassword()
     {
         return $this->password;
     }
@@ -158,7 +158,7 @@ class User implements \JsonSerializable
      * @param string $password
      * @return User
      */
-    public function setPassword(string $password): User
+    public function setPassword($password)
     {
         $this->password = password_hash($password, PASSWORD_DEFAULT);
         return $this;
@@ -178,7 +178,7 @@ class User implements \JsonSerializable
     /**
      * @return \DateTime
      */
-    public function getLastLogin(): \DateTime
+    public function getLastLogin()
     {
         return $this->lastLogin;
     }
@@ -187,7 +187,7 @@ class User implements \JsonSerializable
      * @param \DateTime $lastLogin
      * @return User
      */
-    public function setLastLogin(\DateTime $lastLogin): User
+    public function setLastLogin(\DateTime $lastLogin)
     {
         $this->lastLogin = $lastLogin;
         return $this;
@@ -196,7 +196,7 @@ class User implements \JsonSerializable
     /**
      * @return string
      */
-    public function getToken(): string
+    public function getToken()
     {
         return $this->token;
     }
@@ -205,7 +205,7 @@ class User implements \JsonSerializable
      * @param string $token
      * @return User
      */
-    public function setToken(string $token): User
+    public function setToken($token)
     {
         $this->token = $token;
         return $this;
@@ -214,7 +214,7 @@ class User implements \JsonSerializable
     /**
      * @inheritDoc
      */
-    public function __toString(): string
+    public function __toString()
     {
         return $this->username;
     }
@@ -222,7 +222,7 @@ class User implements \JsonSerializable
     /**
      * @inheritDoc
      */
-    public function jsonSerialize(): array
+    public function jsonSerialize()
     {
         return array(
             'id'            => $this->id,

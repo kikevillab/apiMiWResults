@@ -60,7 +60,7 @@ class Result implements \JsonSerializable
      * @param User      $user   user
      * @param \DateTime $time   time
      */
-    public function __construct(int $result, User $user, \DateTime $time)
+    public function __construct($result, User $user, \DateTime $time)
     {
         $this->id     = 0;
         $this->result = $result;
@@ -71,7 +71,7 @@ class Result implements \JsonSerializable
     /**
      * @return int
      */
-    public function getId(): int
+    public function getId()
     {
         return $this->id;
     }
@@ -79,7 +79,7 @@ class Result implements \JsonSerializable
     /**
      * @return int
      */
-    public function getResult(): int
+    public function getResult()
     {
         return $this->result;
     }
@@ -88,7 +88,7 @@ class Result implements \JsonSerializable
      * @param int $result
      * @return Result
      */
-    public function setResult(int $result): Result
+    public function setResult($result)
     {
         $this->result = $result;
         return $this;
@@ -97,7 +97,7 @@ class Result implements \JsonSerializable
     /**
      * @return User
      */
-    public function getUser(): User
+    public function getUser()
     {
         return $this->user;
     }
@@ -106,7 +106,7 @@ class Result implements \JsonSerializable
      * @param User $user
      * @return Result
      */
-    public function setUser(User $user): Result
+    public function setUser(User $user)
     {
         $this->user = $user;
         return $this;
@@ -115,7 +115,7 @@ class Result implements \JsonSerializable
     /**
      * @return \DateTime
      */
-    public function getTime(): \DateTime
+    public function getTime()
     {
         return $this->time;
     }
@@ -124,7 +124,7 @@ class Result implements \JsonSerializable
      * @param \DateTime $time
      * @return Result
      */
-    public function setTime(\DateTime $time): Result
+    public function setTime(\DateTime $time)
     {
         $this->time = $time;
         return $this;
@@ -136,7 +136,7 @@ class Result implements \JsonSerializable
      * @return string
      * @link http://php.net/manual/en/language.oop5.magic.php#language.oop5.magic.tostring
      */
-    public function __toString(): string
+    public function __toString()
     {
         return sprintf(
             '%3d - %3d - %30s - %s',
@@ -150,7 +150,7 @@ class Result implements \JsonSerializable
     /**
      * @inheritDoc
      */
-    public function jsonSerialize(): array
+    public function jsonSerialize()
     {
         return array(
             'id'     => $this->id,
@@ -160,3 +160,88 @@ class Result implements \JsonSerializable
         );
     }
 }
+
+/**
+ * @SWG\Definition(
+ *     definition="Result",
+ *     required = { "id", "result", "time", "user" },
+ *     @SWG\Property(
+ *          property    = "id",
+ *          description = "Result Id",
+ *          type        = "integer",
+ *          format      = "int32"
+ *      ),
+ *      @SWG\Property(
+ *          property    = "result",
+ *          description = "Result result",
+ *          type        = "integer"
+ *      ),
+ *      @SWG\Property(
+ *          property    = "time",
+ *          description = "Result time",
+ *          type        = "dateTime"
+ *      ),
+ *      @SWG\Property(
+ *          property    = "user",
+ *          description = "Result User",
+ *          type        = "User"
+ *      ),
+ *      example = {
+ *          "id"       = 1508,
+ *          "result"   = "Result result",
+ *          "time"     = "Result time",
+ *          "user"     = "Result User"
+ *     }
+ * )
+ * @SWG\Parameter(
+ *      name        = "resultId",
+ *      in          = "path",
+ *      description = "ID of result to fetch",
+ *      required    = true,
+ *      type        = "integer",
+ *      format      = "int32"
+ * )
+ */
+
+/**
+ * @SWG\Definition(
+ *      definition = "ResultData",
+ *      @SWG\Property(
+ *          property    = "result",
+ *          description = "Result result",
+ *          type        = "integer"
+ *      ),
+ *      @SWG\Property(
+ *          property    = "time",
+ *          description = "Result time",
+ *          type        = "string",
+ *          format      = "date"
+ *      ),
+ *      @SWG\Property(
+ *          property    = "userId",
+ *          description = "User id",
+ *          type        = "integer"
+ *      ),
+ *      example = {
+ *          "result"  = 35,
+ *          "time"    = "2016-08-22",
+ *          "userId"  = 5
+ *      }
+ * )
+ */
+
+/**
+ * User array definition
+ *
+ * @SWG\Definition(
+ *     definition = "ResultsArray",
+ *      @SWG\Property(
+ *          property    = "results",
+ *          description = "Results array",
+ *          type        = "array",
+ *          items       = {
+ *              "$ref": "#/definitions/Result"
+ *          }
+ *      )
+ * )
+ */
